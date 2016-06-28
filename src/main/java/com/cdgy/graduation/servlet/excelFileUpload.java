@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -118,42 +119,24 @@ public class excelFileUpload extends HttpServlet{
 							
 							System.out.println("输出首行数据：");
 							List<String> errMsg = new ArrayList<String>();
+							List<String> TopMessage = Arrays.asList("姓名", "班级", "学号","序号","入学时间","家属电话");
 							//遍历每列
 							for(int c = 0;c<cellTopCount;c++){
 								Cell cell = topRow.getCell(c);
 								int cellType = cell.getCellType();
 								switch (cellType) {
 								case Cell.CELL_TYPE_STRING:
-									if(cell.getStringCellValue().toString().equals("姓名") && c==0 ){
+									String temp = TopMessage.get(c);
+									if(cell.getStringCellValue().toString().equals(temp) && c==TopMessage.indexOf(temp) ){
 										//第一列合法
-										System.out.println("第一列合法");
-										System.out.println(cell.getStringCellValue()+";");
-									}else if(cell.getStringCellValue().toString().equals("班级") && c==1 ){
-										//第二列合法
-										System.out.println("第二列合法");
-										System.out.println(cell.getStringCellValue()+";");
-									}else if(cell.getStringCellValue().toString().equals("学号") && c==2 ){
-										//第三列合法
-										System.out.println("第三列合法");
-										System.out.println(cell.getStringCellValue()+";");
-									}else if(cell.getStringCellValue().toString().equals("序号") && c==3 ){
-										//第四列合法
-										System.out.println("第四列合法");
-										System.out.println(cell.getStringCellValue()+";");
-									}else if(cell.getStringCellValue().toString().equals("入学时间") && c==4 ){
-										//第五列合法
-										System.out.println("第五列合法");
-										System.out.println(cell.getStringCellValue()+";");
-									}else if(cell.getStringCellValue().toString().equals("家属电话") && c==5 ){
-										//第六列合法
-										System.out.println("第六列合法");
+										System.out.println("第"+ (c+1) +"列合法");
 										System.out.println(cell.getStringCellValue()+";");
 									}
 									break;
 
 								default:
-									String temp = "首行"+ (c+1) +"列出现了非法字符，请全部换为文本格式";
-									errMsg.add(temp);
+									String tempError = "首行"+ (c+1) +"列出现了非法字符，请全部换为文本格式";
+									errMsg.add(tempError);
 									break;
 								}
 							}
@@ -189,7 +172,9 @@ public class excelFileUpload extends HttpServlet{
 		}
 	}
 	public static void main(String[] args) {
-		String [] a = {"a","b","c","d"};
-		int s = a.in
+		List<String> a = Arrays.asList("foo", "bar", "baz");
+		
+		int s = a.indexOf("baz");
+		System.out.println(s);
 	}
 }
